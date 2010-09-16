@@ -84,6 +84,7 @@ postgis_datasource::postgis_datasource(parameters const& params)
               params.get<std::string>("password")),
      bbox_token_("!bbox!"),
      scale_denom_token_("!scale_denominator!"),
+     level_token_("!level!"),
      persist_connection_(*params_.get<mapnik::boolean>("persist_connection",true)),
      extent_from_subquery_(*params_.get<mapnik::boolean>("extent_from_subquery",false))
      //show_queries_(*params_.get<mapnik::boolean>("show_queries",false))
@@ -353,10 +354,16 @@ std::string postgis_datasource::populate_tokens(const std::string& sql) const
         std::string max_denom = lexical_cast<std::string>(FMAX);
         boost::algorithm::replace_all(populated_sql,scale_denom_token_,max_denom);
     }
+    if ( boost::algorithm::icontains(sql,level_token_) )
+    {
+        std::string max_level = lexical_cast<std::string>(FMAX);
+        boost::algorithm::replace_all(populated_sql,level_token_,max_level);
+    }
     return populated_sql;
 }
 
-std::string postgis_datasource::populate_tokens(const std::string& sql, double const& scale_denom, Envelope<double> const& env) const
+
+std::string postgis_datasource::populate_tokens(const std::string& sql, double const& scale_denom, Envelope<double> const& env, double const& level) const
 {
     std::string populated_sql = sql;
     std::string box = sql_bbox(env);
@@ -377,6 +384,12 @@ std::string postgis_datasource::populate_tokens(const std::string& sql, double c
         std::ostringstream s;
         s << " WHERE \"" << geometryColumn_ << "\" && " << box;
         return populated_sql + s.str();    
+    }
+
+    if ( boost::algorithm::icontains(populated_sql,level_token_) )
+    {
+        std::string level_str = lexical_cast<std::string>(level);
+        boost::algorithm::replace_all(populated_sql,level_token_,level_str);
     }
 }
 
@@ -455,6 +468,7 @@ featureset_ptr postgis_datasource::features(const query& q) const
 
    Envelope<double> const& box = q.get_bbox();
    double scale_denom = q.scale_denominator();
+   double level = q.level();
    ConnectionManager *mgr=ConnectionManager::instance();
    shared_ptr<Pool<Connection,ConnectionCreator> > pool=mgr->getPool(creator_.id());
    if (pool)
@@ -484,7 +498,7 @@ featureset_ptr postgis_datasource::features(const query& q) const
             ++pos;
          }	 
 
-         std::string table_with_bbox = populate_tokens(table_,scale_denom,box);
+         std::string table_with_bbox = populate_tokens(table_,scale_denom,box,level);
 
          s << " from " << table_with_bbox;
 
@@ -499,7 +513,7 @@ featureset_ptr postgis_datasource::features(const query& q) const
    return featureset_ptr();
 }
 
-featureset_ptr postgis_datasource::features_at_point(coord2d const& pt) const
+featureset_ptr postgis_datasource::features_at_point(coord2d const& pt, double level = 0.0) const
 {
    ConnectionManager *mgr=ConnectionManager::instance();
    shared_ptr<Pool<Connection,ConnectionCreator> > pool=mgr->getPool(creator_.id());
@@ -533,7 +547,7 @@ featureset_ptr postgis_datasource::features_at_point(coord2d const& pt) const
          }
 
          Envelope<double> box(pt.x,pt.y,pt.x,pt.y);
-         std::string table_with_bbox = populate_tokens(table_,FMAX,box);
+         std::string table_with_bbox = populate_tokens(table_,FMAX,box,level);
 
          s << " from " << table_with_bbox;
          

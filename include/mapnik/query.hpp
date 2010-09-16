@@ -48,15 +48,17 @@ namespace mapnik {
               scale_denominator_(scale_denominator)
          {}
 
-         explicit query(const Envelope<double>& bbox, double resolution)
+         explicit query(const Envelope<double>& bbox, double resolution, double level = 0.0)
             : bbox_(bbox),
               resolution_(resolution),
+              level_(level),
               scale_denominator_(0.0)
          {}         
         
          query(const query& other)
             : bbox_(other.bbox_),
               resolution_(other.resolution_),
+              level_(other.level_),
               scale_denominator_(other.scale_denominator_),
               names_(other.names_)
          {}
@@ -66,6 +68,7 @@ namespace mapnik {
             if (this == &other) return *this;
             bbox_=other.bbox_;
             resolution_=other.resolution_;
+            level_=other.level_;
             scale_denominator_=other.scale_denominator_;
             names_=other.names_;
             return *this;
@@ -74,6 +77,11 @@ namespace mapnik {
          double resolution() const
          {
             return resolution_;
+         }
+
+         double level() const
+         {
+            return level_;
          }
 
          double scale_denominator() const

@@ -70,7 +70,8 @@ namespace mapnik
           styles_(rhs.styles_),
           layers_(rhs.layers_),
           aspectFixMode_(rhs.aspectFixMode_),
-          currentExtent_(rhs.currentExtent_) {}
+          currentExtent_(rhs.currentExtent_) {},
+          level_(rhs.level_)
     
     Map& Map::operator=(const Map& rhs)
     {
@@ -83,6 +84,7 @@ namespace mapnik
         styles_=rhs.styles_;
         layers_=rhs.layers_;
         aspectFixMode_=rhs.aspectFixMode_;
+        level_=rhs.level_;
         return *this;
     }
    
@@ -418,6 +420,16 @@ namespace mapnik
     {
         pan(x,y);
         zoom(factor);
+    }
+
+    void Map::set_level(double level)
+    {
+        level_ = level;
+    }
+
+    double Map::level() const
+    {
+        return level_;
     }
 
     double Map::scale() const

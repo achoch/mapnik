@@ -73,6 +73,7 @@ class postgis_datasource : public datasource
       static const std::string name_;
       const std::string bbox_token_;
       const std::string scale_denom_token_;
+      const std::string level_token_;
       bool persist_connection_;
       bool extent_from_subquery_;
       //bool show_queries_;
@@ -87,7 +88,7 @@ class postgis_datasource : public datasource
       ~postgis_datasource();
    private:
       std::string sql_bbox(Envelope<double> const& env) const;
-      std::string populate_tokens(const std::string& sql, double const& scale_denom, Envelope<double> const& env) const;
+      std::string populate_tokens(const std::string& sql, double const& scale_denom, Envelope<double> const& env, double const& level) const;
       std::string populate_tokens(const std::string& sql) const;
       static std::string unquote(const std::string& sql);
       static std::string table_from_sql(const std::string& sql);

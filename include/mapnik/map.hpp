@@ -78,6 +78,7 @@ namespace mapnik
         std::vector<Layer> layers_;
         aspect_fix_mode aspectFixMode_;
         Envelope<double> currentExtent_;
+        double level_;
         
     public:
 
@@ -310,6 +311,14 @@ namespace mapnik
          */
         Envelope<double> get_buffered_extent() const;
         
+        /*! \brief Get map level.
+         */
+        void level(double level);
+
+        /*! \brief Set map level.
+         */
+        void set_level(double level);
+
         /*!
          * @return The Map Scale.
          */
