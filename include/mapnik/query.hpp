@@ -39,21 +39,16 @@ namespace mapnik {
          Envelope<double> bbox_;
          double resolution_;
          double scale_denominator_;
+         double level_;
          std::set<std::string> names_;
       public:
          
-         explicit query(const Envelope<double>& bbox, double resolution, double scale_denominator)
+         explicit query(const Envelope<double>& bbox, double resolution, double scale_denominator = 0.0, double level = 0.0)
             : bbox_(bbox),
               resolution_(resolution),
-              scale_denominator_(scale_denominator)
+              scale_denominator_(scale_denominator),
+              level_(level)
          {}
-
-         explicit query(const Envelope<double>& bbox, double resolution, double level = 0.0)
-            : bbox_(bbox),
-              resolution_(resolution),
-              level_(level),
-              scale_denominator_(0.0)
-         {}         
         
          query(const query& other)
             : bbox_(other.bbox_),
