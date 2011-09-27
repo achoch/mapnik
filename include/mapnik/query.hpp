@@ -43,18 +43,32 @@ namespace mapnik {
          std::set<std::string> names_;
       public:
          
-         explicit query(const Envelope<double>& bbox, double resolution, double scale_denominator = 0.0, double level = 0.0)
+         explicit query(const Envelope<double>& bbox, double resolution, double scale_denominator, double level)
             : bbox_(bbox),
               resolution_(resolution),
               scale_denominator_(scale_denominator),
               level_(level)
          {}
+         
+         explicit query(const Envelope<double>& bbox, double resolution, double scale_denominator)
+            : bbox_(bbox),
+              resolution_(resolution),
+              scale_denominator_(scale_denominator),
+              level_(0.0)
+         {}
+
+         explicit query(const Envelope<double>& bbox, double resolution)
+            : bbox_(bbox),
+              resolution_(resolution),
+              scale_denominator_(0.0),
+              level_(0.0)
+         {}
         
          query(const query& other)
             : bbox_(other.bbox_),
               resolution_(other.resolution_),
-              level_(other.level_),
               scale_denominator_(other.scale_denominator_),
+              level_(other.level_),
               names_(other.names_)
          {}
          
@@ -63,8 +77,8 @@ namespace mapnik {
             if (this == &other) return *this;
             bbox_=other.bbox_;
             resolution_=other.resolution_;
-            level_=other.level_;
             scale_denominator_=other.scale_denominator_;
+            level_=other.level_;
             names_=other.names_;
             return *this;
          }
@@ -74,16 +88,16 @@ namespace mapnik {
             return resolution_;
          }
 
-         double level() const
-         {
-            return level_;
-         }
-
          double scale_denominator() const
          {
             return scale_denominator_;
          }
-         
+ 
+         double level() const
+         {
+            return level_;
+         }
+        
          const Envelope<double>& get_bbox() const
          {
             return bbox_;

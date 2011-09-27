@@ -92,6 +92,7 @@ gdal_datasource::gdal_datasource(parameters const& params)
    height_ = dataset->GetRasterYSize();
 
    double tr[6];
+      featureset_ptr features_at_point(coord2d const& pt, double level=0.0) const;
    dataset->GetGeoTransform(tr);
    double dx = tr[1];
    double dy = tr[5];
@@ -137,7 +138,7 @@ featureset_ptr gdal_datasource::features(query const& q) const
    return featureset_ptr(new gdal_featureset(*open_dataset(), band_, gq));
 }
 
-featureset_ptr gdal_datasource::features_at_point(coord2d const& pt) const
+featureset_ptr gdal_datasource::features_at_point(coord2d const& pt, double level) const
 {
    gdal_query gq = pt;
    return featureset_ptr(new gdal_featureset(*open_dataset(), band_, gq));

@@ -48,7 +48,7 @@ class osm_datasource : public datasource
 	  // these must be overridden
       int type() const;
       featureset_ptr features(const query& q) const;
-      featureset_ptr features_at_point(coord2d const& pt) const;
+      featureset_ptr features_at_point(coord2d const& pt, double level=0.0) const;
       Envelope<double> envelope() const;
       layer_descriptor get_descriptor() const;   
 	  static std::string name() { return name_; }

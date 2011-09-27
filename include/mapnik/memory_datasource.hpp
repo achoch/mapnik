@@ -40,7 +40,7 @@ namespace mapnik {
       void push(feature_ptr feature);
       int type() const;
       featureset_ptr features(const query& q) const;
-      featureset_ptr features_at_point(coord2d const& pt) const;
+      featureset_ptr features_at_point(coord2d const& pt, double level=0.0) const;
       Envelope<double> envelope() const;
       layer_descriptor get_descriptor() const;
       size_t size() const;

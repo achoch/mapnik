@@ -44,7 +44,7 @@ public:
    int type() const;
    static std::string name();
    mapnik::featureset_ptr features(const mapnik::query& q) const;
-   mapnik::featureset_ptr features_at_point(mapnik::coord2d const& pt) const;
+   mapnik::featureset_ptr features_at_point(mapnik::coord2d const& pt, double level=0.0) const;
    mapnik::Envelope<double> envelope() const;
    mapnik::layer_descriptor get_descriptor() const;
 private:

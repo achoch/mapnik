@@ -46,7 +46,7 @@ class shape_datasource : public datasource
       int type() const;
       static std::string name();
       featureset_ptr features(const query& q) const;
-      featureset_ptr features_at_point(coord2d const& pt) const;
+      featureset_ptr features_at_point(coord2d const& pt, double level=0.0) const;
       Envelope<double> envelope() const;
       layer_descriptor get_descriptor() const;   
    private:

@@ -313,7 +313,7 @@ namespace mapnik
         
         /*! \brief Get map level.
          */
-        void level(double level);
+        double level() const;
 
         /*! \brief Set map level.
          */

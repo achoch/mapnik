@@ -74,7 +74,7 @@ namespace mapnik {
     }
 
 
-    featureset_ptr memory_datasource::features_at_point(coord2d const& pt) const
+    featureset_ptr memory_datasource::features_at_point(coord2d const& pt, double level) const
     {
         return featureset_ptr();
     }

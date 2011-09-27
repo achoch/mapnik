@@ -321,7 +321,7 @@ featureset_ptr sqlite_datasource::features(query const& q) const
    return featureset_ptr();
 }
 
-featureset_ptr sqlite_datasource::features_at_point(coord2d const& pt) const
+featureset_ptr sqlite_datasource::features_at_point(coord2d const& pt, double level) const
 {
 #if 0
    if (dataset_ && layer_)

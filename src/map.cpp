@@ -70,8 +70,8 @@ namespace mapnik
           styles_(rhs.styles_),
           layers_(rhs.layers_),
           aspectFixMode_(rhs.aspectFixMode_),
-          currentExtent_(rhs.currentExtent_) {},
-          level_(rhs.level_)
+          currentExtent_(rhs.currentExtent_),
+          level_(rhs.level_) {}
     
     Map& Map::operator=(const Map& rhs)
     {

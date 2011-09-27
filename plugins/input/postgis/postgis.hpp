@@ -81,7 +81,7 @@ class postgis_datasource : public datasource
       static std::string name();
       int type() const;
       featureset_ptr features(const query& q) const;
-      featureset_ptr features_at_point(coord2d const& pt) const;
+      featureset_ptr features_at_point(coord2d const& pt, double level) const;
       mapnik::Envelope<double> envelope() const;
       layer_descriptor get_descriptor() const;
       postgis_datasource(const parameters &params);
