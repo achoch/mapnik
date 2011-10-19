@@ -160,15 +160,15 @@ int main ( int argc , char** argv)
         
         // Populated Places
         
-        feature_type_style popplaces_style;
-        rule_type popplaces_rule;
-        text_symbolizer popplaces_text_symbolizer("GEONAME","DejaVu Sans Book",10,color(0,0,0));
-        popplaces_text_symbolizer.set_halo_fill(color(255,255,200));
-        popplaces_text_symbolizer.set_halo_radius(1);
-        popplaces_rule.append(popplaces_text_symbolizer);
-        popplaces_style.add_rule(popplaces_rule);
-        
-        m.insert_style("popplaces",popplaces_style );
+//        feature_type_style popplaces_style;
+//        rule_type popplaces_rule;
+//        text_symbolizer popplaces_text_symbolizer("GEONAME","DejaVu Sans Book",10,color(0,0,0));
+//        popplaces_text_symbolizer.set_halo_fill(color(255,255,200));
+//        popplaces_text_symbolizer.set_halo_radius(1);
+//        popplaces_rule.append(popplaces_text_symbolizer);
+//        popplaces_style.add_rule(popplaces_rule);
+//
+//        m.insert_style("popplaces",popplaces_style );
         
         // Layers
         // Provincial  polygons
